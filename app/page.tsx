@@ -16,18 +16,23 @@ import { WaFloat } from "@/components/WaFloat";
 export default function Page() {
   return (
     <>
+      <a href="#contenu" className="skip">
+        Aller au contenu
+      </a>
       <Nav />
-      <Hero />
-      <TrustStrip />
-      <Services />
-      <Why />
-      <Meet />
-      <Testimonials />
-      <Features />
-      <Engagement />
-      <Forms />
-      <Faq />
-      <CtaBig />
+      <main id="contenu">
+        <Hero />
+        <TrustStrip />
+        <Services />
+        <Why />
+        <Meet />
+        <Testimonials />
+        <Features />
+        <Engagement />
+        <Forms />
+        <Faq />
+        <CtaBig />
+      </main>
       <Footer />
       <WaFloat />
     </>
