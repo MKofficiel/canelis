@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function Footer() {
   return (
     <footer className="foot" id="contact">
@@ -8,15 +10,26 @@ export function Footer() {
 
         <div className="foot-cols">
           <div>
-            <a href="#" className="logo">
-              <span className="logo-m">C</span>Canelis
+            <a href="#" className="logo" aria-label="Canelis">
+              <Image
+                src="/logo-canelis-mark.png"
+                alt="Canelis"
+                width={54}
+                height={44}
+                style={{ height: 44, width: "auto" }}
+              />
             </a>
             <p className="foot-brand-p">
-              Plateforme d&apos;accompagnement à l&apos;emploi 100 % en ligne pour les chercheurs
-              d&apos;emploi en Afrique qui visent le Canada. CV, lettres, entrevues, coaching.
+              Accompagnement à la recherche d&apos;emploi au Canada, 100 % en ligne, pour les
+              candidats basés en Afrique. CV, lettres, entrevues, coaching.
             </p>
             <div className="foot-socials">
-              <a href="https://wa.me/14382825447" aria-label="WhatsApp">
+              <a
+                href="https://wa.me/14382825447"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+              >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.19 3.03 14.69 2 12.04 2z" />
                 </svg>
@@ -42,7 +55,12 @@ export function Footer() {
           </div>
           <div>
             <div className="foot-col-t">Contact direct</div>
-            <a href="https://wa.me/14382825447" className="foot-row">
+            <a
+              href="https://wa.me/14382825447"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="foot-row"
+            >
               WhatsApp
               <span className="foot-row-meta">+1 438 282 5447</span>
             </a>
@@ -64,7 +82,7 @@ export function Footer() {
             <a href="#services" className="foot-row">CV canadien</a>
             <a href="#services" className="foot-row">Lettre de présentation</a>
             <a href="#services" className="foot-row">Préparation aux entrevues</a>
-            <a href="#services" className="foot-row">Coaching personnalisé</a>
+            <a href="#services" className="foot-row">Accompagnement complet A&rarr;Z</a>
           </div>
           <div>
             <div className="foot-col-t">Navigation</div>
@@ -79,7 +97,7 @@ export function Footer() {
           <div>
             <a href="#">Mentions légales</a>
             <a href="#">CGV</a>
-            <a href="#">Confidentialité</a>
+            <a href="/confidentialite">Confidentialité</a>
           </div>
         </div>
       </div>

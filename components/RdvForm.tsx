@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -13,19 +13,38 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
   COUNTRIES,
   PROVINCES,
   SERVICES,
-  SLOTS,
+  SLOT_COUNT,
+  getSlots,
+  normalizeWhatsapp,
   rdvSchema,
   type RdvInput,
+  type Slot,
 } from "@/lib/schemas/rdv";
 
+const WHATSAPP_NUMBER = "14382825447";
+
 export function RdvForm() {
-  const [submitState, setSubmitState] = useState<"idle" | "ok" | "error">("idle");
+  const [submitState, setSubmitState] = useState<"idle" | "ok">("idle");
+  const [waUrl, setWaUrl] = useState<string>("");
+  // Créneaux générés au montage (côté client) pour rester toujours à jour.
+  const [slots, setSlots] = useState<Slot[]>([]);
+  const slotLabelId = useId();
+
+  useEffect(() => {
+    setSlots(getSlots());
+  }, []);
 
   const form = useForm<RdvInput>({
     resolver: zodResolver(rdvSchema),
@@ -35,40 +54,66 @@ export function RdvForm() {
       country: "Sénégal",
       province: "Indifférent",
       service: SERVICES[0],
-      slot: 1,
+      slot: "",
       message: "",
+      consent: false as unknown as true,
     },
     mode: "onTouched",
   });
 
-  async function onSubmit(values: RdvInput) {
-    try {
-      console.log("[RDV] submit", values);
-      await new Promise((r) => setTimeout(r, 600));
-      setSubmitState("ok");
-      form.reset();
-    } catch {
-      setSubmitState("error");
-    }
+  function onSubmit(values: RdvInput) {
+    const slot = slots.find((s) => s.id === values.slot);
+    const slotLabel = slot ? `${slot.day} à ${slot.time}` : values.slot;
+
+    const text = [
+      "Bonjour Canelis, je souhaite réserver un appel découverte gratuit.",
+      "",
+      `• Nom : ${values.name}`,
+      `• WhatsApp : ${normalizeWhatsapp(values.whatsapp)}`,
+      `• Pays : ${values.country}`,
+      `• Province visée : ${values.province}`,
+      `• Service : ${values.service}`,
+      `• Créneau préféré : ${slotLabel} (heure du Québec)`,
+      values.message ? `• Message : ${values.message}` : null,
+    ]
+      .filter((line) => line !== null)
+      .join("\n");
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    setWaUrl(url);
+    // Ouvre WhatsApp avec le message pré-rempli (app mobile ou WhatsApp Web).
+    window.open(url, "_blank", "noopener,noreferrer");
+    setSubmitState("ok");
+    form.reset();
   }
 
   if (submitState === "ok") {
     return (
       <div className="form-card dark form-success" role="status" aria-live="polite">
-        <div className="eye light" style={{ color: "var(--gold)" }}>
-          Demande reçue
-        </div>
-        <h3>Merci, on vous recontacte.</h3>
+        <div className="eye">Presque terminé</div>
+        <h3>On ouvre WhatsApp…</h3>
         <p className="form-card-d">
-          Confirmation par WhatsApp sous 24 h ouvrées avec le créneau définitif et le lien visio.
+          Votre demande est déjà rédigée dans WhatsApp : il ne vous reste qu&apos;à appuyer sur
+          <strong> Envoyer</strong>. Si l&apos;application ne s&apos;est pas ouverte, utilisez le
+          bouton ci-dessous.
         </p>
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="submit"
+          style={{ textDecoration: "none" }}
+        >
+          Ouvrir WhatsApp
+          <span className="arrow">→</span>
+        </a>
         <button
           type="button"
-          className="submit"
+          className="back"
+          style={{ marginTop: 12 }}
           onClick={() => setSubmitState("idle")}
         >
-          Envoyer une autre demande
-          <span className="arrow">→</span>
+          Modifier ma demande
         </button>
       </div>
     );
@@ -81,13 +126,12 @@ export function RdvForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
       >
-        <div className="eye light" style={{ color: "var(--gold)" }}>
-          Appel découverte gratuit
-        </div>
+        <div className="eye">Appel découverte gratuit</div>
         <h3>Réservez votre appel gratuit.</h3>
         <p className="form-card-d">
-          15 min en visio pour identifier le bon levier (CV, lettre, entrevues, coaching) et bâtir
-          un plan concret. Confirmation WhatsApp sous 24 h.
+          15 min en visio pour identifier le bon service (CV, lettre, entrevues, coaching) et
+          bâtir un plan concret. Votre demande part directement sur WhatsApp, réponse sous 24 h
+          ouvrées.
         </p>
 
         <FormField
@@ -130,13 +174,20 @@ export function RdvForm() {
             render={({ field }) => (
               <FormItem className="field">
                 <FormLabel className="label">Pays de résidence</FormLabel>
-                <FormControl>
-                  <Select {...field}>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
                     {COUNTRIES.map((c) => (
-                      <option key={c}>{c}</option>
+                      <SelectItem key={c} value={c}>
+                        {c}
+                      </SelectItem>
                     ))}
-                  </Select>
-                </FormControl>
+                  </SelectContent>
+                </Select>
                 <FormMessage className="form-err" />
               </FormItem>
             )}
@@ -150,13 +201,20 @@ export function RdvForm() {
             render={({ field }) => (
               <FormItem className="field">
                 <FormLabel className="label">Province visée</FormLabel>
-                <FormControl>
-                  <Select {...field}>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
                     {PROVINCES.map((p) => (
-                      <option key={p}>{p}</option>
+                      <SelectItem key={p} value={p}>
+                        {p}
+                      </SelectItem>
                     ))}
-                  </Select>
-                </FormControl>
+                  </SelectContent>
+                </Select>
                 <FormMessage className="form-err" />
               </FormItem>
             )}
@@ -168,13 +226,20 @@ export function RdvForm() {
             render={({ field }) => (
               <FormItem className="field">
                 <FormLabel className="label">Service souhaité</FormLabel>
-                <FormControl>
-                  <Select {...field}>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
                     {SERVICES.map((s) => (
-                      <option key={s}>{s}</option>
+                      <SelectItem key={s} value={s}>
+                        {s}
+                      </SelectItem>
                     ))}
-                  </Select>
-                </FormControl>
+                  </SelectContent>
+                </Select>
                 <FormMessage className="form-err" />
               </FormItem>
             )}
@@ -186,27 +251,42 @@ export function RdvForm() {
           name="slot"
           render={({ field, fieldState }) => (
             <FormItem className="field">
-              <FormLabel className="label">Créneau préféré</FormLabel>
+              <FormLabel className="label" id={slotLabelId}>
+                Créneau préféré <span className="label-note">(heure du Québec)</span>
+              </FormLabel>
               <FormControl>
                 <div
                   className="slots"
                   role="radiogroup"
-                  aria-label="Créneau"
+                  aria-labelledby={slotLabelId}
                   aria-invalid={!!fieldState.error}
+                  aria-busy={slots.length === 0}
                 >
-                  {SLOTS.map((s, i) => (
-                    <button
-                      type="button"
-                      key={i}
-                      role="radio"
-                      aria-checked={field.value === i}
-                      className={`slot${field.value === i ? " on" : ""}`}
-                      onClick={() => field.onChange(i)}
-                    >
-                      <div className="slot-d">{s.d}</div>
-                      <div>{s.t}</div>
-                    </button>
-                  ))}
+                  {slots.length === 0
+                    ? /* Squelettes : les créneaux sont calculés au montage pour
+                         rester à jour malgré le prérendu statique. Sans eux, la
+                         grille passait de 0 à 10 cases et décalait la page. */
+                      Array.from({ length: SLOT_COUNT }, (_, i) => (
+                        <span key={i} className="slot slot-skeleton" aria-hidden="true" />
+                      ))
+                    : slots.map((s) => (
+                        <label
+                          key={s.id}
+                          className={`slot${field.value === s.id ? " on" : ""}`}
+                        >
+                          <input
+                            type="radio"
+                            className="slot-input"
+                            name={field.name}
+                            value={s.id}
+                            checked={field.value === s.id}
+                            onChange={() => field.onChange(s.id)}
+                            onBlur={field.onBlur}
+                          />
+                          <span className="slot-d">{s.day}</span>
+                          <span>{s.time}</span>
+                        </label>
+                      ))}
                 </div>
               </FormControl>
               <FormMessage className="form-err" />
@@ -233,28 +313,36 @@ export function RdvForm() {
           )}
         />
 
-        {submitState === "error" && (
-          <div className="form-banner-err" role="alert">
-            Impossible d&apos;envoyer la demande. Réessayez ou contactez-nous sur WhatsApp.
-          </div>
-        )}
-
-        <button
-          type="submit"
-          className="submit"
-          disabled={form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting ? (
-            <>
-              <span className="submit-spinner" aria-hidden="true" />
-              Envoi…
-            </>
-          ) : (
-            <>
-              Réserver mon appel gratuit
-              <span className="arrow">→</span>
-            </>
+        <FormField
+          control={form.control}
+          name="consent"
+          render={({ field }) => (
+            <FormItem className="field consent-field">
+              <label className="consent">
+                <input
+                  type="checkbox"
+                  className="consent-box"
+                  checked={!!field.value}
+                  onChange={(e) => field.onChange(e.target.checked)}
+                  onBlur={field.onBlur}
+                  aria-invalid={!!form.formState.errors.consent}
+                />
+                <span className="consent-text">
+                  J&apos;accepte que mes informations soient utilisées pour me recontacter au
+                  sujet de ma demande.{" "}
+                  <a href="/confidentialite" className="consent-link">
+                    Politique de confidentialité
+                  </a>
+                </span>
+              </label>
+              <FormMessage className="form-err" />
+            </FormItem>
           )}
+        />
+
+        <button type="submit" className="submit">
+          Réserver sur WhatsApp
+          <span className="arrow">→</span>
         </button>
       </form>
     </Form>

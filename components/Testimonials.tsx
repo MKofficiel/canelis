@@ -19,7 +19,7 @@ const PERSONAS: Persona[] = [
   {
     tag: "Profil 02",
     title: "Hommes et femmes de métier",
-    desc: "Au moins 2 ans d'expérience comme infirmier, mécanicien, électricien, plombier, boulanger. Le Canada cherche activement votre profil.",
+    desc: "Au moins 2 ans d'expérience comme infirmier, mécanicien, électricien, plombier, boulanger. Ces métiers figurent parmi les professions en demande au Canada.",
     service: "CV canadien · Lettre",
   },
   {
@@ -31,7 +31,7 @@ const PERSONAS: Persona[] = [
   {
     tag: "Profil 04",
     title: "Personnes en reconversion",
-    desc: "Vous changez de secteur, vous voulez un fresh start au Canada. On structure votre nouveau positionnement et votre récit professionnel.",
+    desc: "Vous changez de secteur. On structure votre nouveau positionnement et votre récit professionnel.",
     service: "Coaching · Lettre",
   },
 ];
@@ -42,13 +42,15 @@ export function Testimonials() {
       <div className="testi">
         <div className="testi-inner">
           <div className="testi-head">
+            <FadeUp>
+              <div className="eye">Profils</div>
+            </FadeUp>
             <FadeUp delay={0.1}>
               <h2>Pour qui c&apos;est fait.</h2>
             </FadeUp>
             <FadeUp delay={0.2}>
               <p className="testi-head-p">
-                Canelis accompagne quatre profils types qui visent le marché de l&apos;emploi
-                canadien. Si vous vous reconnaissez ici, on peut probablement vous aider.
+                Canelis accompagne quatre profils qui visent le marché canadien.
               </p>
             </FadeUp>
           </div>

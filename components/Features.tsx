@@ -25,7 +25,7 @@ const FEATURES = [
     num: "04",
     icon: ChatCircle,
     title: "Suivi entrevues",
-    desc: "On reste disponible quand les entretiens arrivent. Préparation, débrief, négociation jusqu'à la signature.",
+    desc: "On reste disponible quand vos entretiens arrivent : préparation, débrief après chaque entrevue, conseils pour la négociation.",
   },
 ];
 
@@ -35,11 +35,11 @@ export function Features() {
       <div className="container">
         <FadeUp>
           <div className="feat-block">
+            <div className="eye">Processus</div>
             <div className="feat-head">
-              <h3>De votre candidature à votre signature.</h3>
+              <h2>Un parcours en quatre étapes.</h2>
               <p className="feat-head-p">
-                Un parcours linéaire, sans surprise. Vous savez exactement où vous en êtes à chaque
-                étape, du premier appel jusqu&apos;à la signature de votre offre.
+                Vous savez où vous en êtes à chaque moment, du premier appel à vos entretiens.
               </p>
             </div>
             <StaggerGroup className="feat-cards" stagger={0.08} delayChildren={0.1}>

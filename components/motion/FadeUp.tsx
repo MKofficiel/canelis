@@ -4,17 +4,18 @@ import { m, useReducedMotion } from "motion/react";
 import type { HTMLMotionProps } from "motion/react";
 import { DURATION, EASE_OUT_QUINT, VIEWPORT } from "@/lib/motion/config";
 
+/* Volontairement limité à opacity + translate : animer `filter: blur()`
+   force la recomposition d'une couche à chaque frame, ce qui saccade le
+   scroll sur les Android d'entrée de gamme du public cible. */
 type Props = HTMLMotionProps<"div"> & {
   delay?: number;
   y?: number;
-  blur?: boolean;
   as?: "div" | "section" | "article" | "span";
 };
 
 export function FadeUp({
   delay = 0,
   y = 28,
-  blur = true,
   as = "div",
   children,
   ...rest
@@ -28,8 +29,8 @@ export function FadeUp({
 
   return (
     <Comp
-      initial={{ opacity: 0, y, filter: blur ? "blur(6px)" : "blur(0px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={VIEWPORT}
       transition={{ duration: DURATION.reveal, ease: EASE_OUT_QUINT, delay }}
       {...rest}

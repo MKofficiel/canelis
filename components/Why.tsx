@@ -4,18 +4,18 @@ import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 const PILLARS = [
   {
     n: "01",
-    t: "Compréhension du marché canadien",
-    d: "On connaît les codes : ATS, ton attendu, attentes RH par province et par secteur. Québec, Ontario, Alberta : chaque livrable est adapté à votre cible.",
+    t: "Les codes du marché",
+    d: "Formats, ton, attentes RH : le Canada ne recrute pas comme la France ou l'Afrique de l'Ouest. Chaque livrable est adapté à votre province et à votre secteur cible.",
   },
   {
     n: "02",
-    t: "Approche humaine",
-    d: "Pas de templates génériques. Pas de robot. Vous parlez à un coach qui a fait le chemin et qui répond sous 24 h, en français.",
+    t: "Un interlocuteur, pas un logiciel",
+    d: "Vous travaillez directement avec un coach qui a traversé le processus lui-même. Réponses sous 24 h ouvrées, en français.",
   },
   {
     n: "03",
-    t: "Approche concrète",
-    d: "Pas de théorie, pas de jargon. Chaque livrable (CV, lettre, plan) est conçu pour décrocher des entretiens, pas pour figurer dans un classement.",
+    t: "Des livrables, pas de la théorie",
+    d: "Vous repartez avec des documents utilisables : CV, lettre, plan de recherche, trames d'entrevue. Deux tours de révision inclus sur chacun.",
   },
 ];
 
@@ -24,7 +24,10 @@ export function Why() {
     <section className="why">
       <div className="container">
         <FadeUp>
-          <h2>L&apos;expertise du marché canadien, l&apos;humain en plus.</h2>
+          <div className="eye">Pourquoi Canelis</div>
+        </FadeUp>
+        <FadeUp delay={0.06}>
+          <h2>Ce qui fait la différence dans une candidature au Canada.</h2>
         </FadeUp>
 
         <StaggerGroup className="why-pillars" stagger={0.08} delayChildren={0.1}>

@@ -24,10 +24,12 @@ export function Hero() {
 
             <h1 className="hero-h1">
               <span className="hero-h1-line">
-                <MaskReveal delay={0.25}>Décrochez votre emploi</MaskReveal>
+                <MaskReveal delay={0.25}>
+                  Postulez au <span className="hl">Canada</span>
+                </MaskReveal>
               </span>
               <span className="hero-h1-line">
-                <MaskReveal delay={0.38}>au Canada.</MaskReveal>
+                <MaskReveal delay={0.38}>avec les codes du marché.</MaskReveal>
               </span>
             </h1>
 
@@ -37,9 +39,8 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...baseT, delay: 0.55 }}
             >
-              Depuis l&apos;Afrique, accédez aux opportunités du marché canadien. CV
-              professionnel, lettre, entrevues, coaching : on transforme votre potentiel en
-              offres concrètes.
+              CV au format nord-américain, lettre au ton canadien, préparation aux entrevues.
+              Un accompagnement structuré depuis l&apos;Afrique, avec un coach installé au Québec.
             </m.p>
 
             <m.div
@@ -48,7 +49,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...baseT, delay: 0.7 }}
             >
-              <a className="btn primary lg" href="#rdv">
+              <a className="btn accent lg" href="#rdv">
                 Réserver mon appel gratuit <span className="arrow">→</span>
               </a>
               <a className="hero-link" href="#services">
@@ -63,11 +64,11 @@ export function Hero() {
               transition={{ ...baseT, delay: 0.85 }}
             >
               <div className="hero-trust-t">
-                <span className="hero-trust-item"><b>Coaching humain</b>, en français</span>
+                <span className="hero-trust-item"><b>100 %</b> en français</span>
                 <span className="hero-trust-sep" aria-hidden="true" />
-                <span className="hero-trust-item">Depuis Trois-Rivières, QC</span>
+                <span className="hero-trust-item">Coach basé à Trois-Rivières, QC</span>
                 <span className="hero-trust-sep" aria-hidden="true" />
-                <span className="hero-trust-item">Réponse sous 24 h</span>
+                <span className="hero-trust-item">Réponse sous 24 h ouvrées</span>
               </div>
             </m.div>
           </div>
@@ -79,16 +80,16 @@ export function Hero() {
             transition={{ ...baseT, delay: 0.6 }}
           >
             <Image
-              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=1200&q=85"
-              alt="Patrick Kouamé Koffy, coach carrière Canelis"
-              width={1200}
-              height={1500}
+              src="/photoPro.jpg"
+              alt="KOFFI Kouamé Patrick, coach carrière Canelis"
+              width={1100}
+              height={1280}
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1280px) 40vw, 480px"
               className="hero-portrait-img"
             />
             <figcaption className="hero-portrait-cap">
-              <span className="hero-portrait-name">Patrick Kouamé Koffy</span>
+              <span className="hero-portrait-name">KOFFI Kouamé Patrick</span>
               <span className="hero-portrait-meta">Coach carrière · Trois-Rivières, QC</span>
             </figcaption>
           </m.figure>

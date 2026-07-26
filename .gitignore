@@ -7,3 +7,5 @@ out
 _design_bundle
 .claude
 tsconfig.tsbuildinfo
+
+.vercel

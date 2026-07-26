@@ -48,22 +48,22 @@ const SERVICES: Service[] = [
     price: "Tarif sur demande",
     priceMeta: "Livré sous 5 jours",
     bullets: [
-      "Réécriture complète aux standards canadiens",
-      "Optimisation ATS et mots-clés du marché",
-      "Refonte LinkedIn cohérente avec le CV",
+      "Réécriture complète au format nord-américain (1-2 pages, résultats chiffrés)",
+      "Les codes que les recruteurs canadiens attendent — et ceux qui vous font recaler sans le savoir",
+      "Optimisation ATS : mots-clés alignés sur les offres de votre secteur",
     ],
     cta: "Choisir ce service",
   },
   {
     id: "lettre",
     icon: Envelope,
-    title: "Lettre de motivation",
+    title: "Lettre de présentation",
     price: "Tarif sur demande",
     priceMeta: "Livrée sous 48 h",
     bullets: [
-      "Lettre personnalisée par offre ou secteur",
-      "Ton canadien, direct, orienté résultats",
-      "Trame réutilisable pour vos prochaines candidatures",
+      "Lettre adaptée à une offre ou à un secteur précis",
+      "Ton canadien : direct, orienté réalisations",
+      "Structure réutilisable pour vos candidatures suivantes",
     ],
     cta: "Choisir ce service",
   },
@@ -74,24 +74,24 @@ const SERVICES: Service[] = [
     price: "Tarif sur demande",
     priceMeta: "2 sessions d'1 h",
     bullets: [
-      "2 mock interviews enregistrées et débriefées",
-      "Méthode STAR et questions pièges",
-      "Plan de négociation salariale",
+      "2 entrevues simulées, enregistrées et débriefées",
+      "Méthode STAR appliquée à vos propres expériences",
+      "Préparation à la discussion salariale",
     ],
     cta: "Choisir ce service",
   },
   {
-    id: "coaching",
+    id: "accompagnement",
     icon: Briefcase,
-    title: "Coaching carrière 1-à-1",
+    title: "Accompagnement complet A→Z",
     price: "Tarif sur demande",
-    priceMeta: "Accompagnement 90 jours",
+    priceMeta: "De la recherche à la signature",
     bullets: [
-      "Plan de recherche structuré sur 90 jours",
-      "Suivi WhatsApp 7j/7, réponses sous 24 h ouvrées",
-      "Accompagnement jusqu'à la signature",
+      "On cherche les offres avec vous et on postule à votre place aux postes qui correspondent",
+      "Suivi WhatsApp de bout en bout : chaque étape, chaque candidature, réponses sous 24 h ouvrées",
+      "Préparation aux entretiens, négociation du salaire et accompagnement jusqu'à la signature du contrat",
     ],
-    cta: "Choisir ce service",
+    cta: "Être accompagné de A à Z",
     featured: { tag: "Recommandé" },
   },
 ];
@@ -102,8 +102,12 @@ export function Services() {
       <div className="container">
         <FadeUp>
           <header className="services-head">
-            <h2>Quatre leviers, un seul objectif : être recruté.</h2>
-            <p>Chaque livrable est conçu pour décrocher des entretiens au Canada.</p>
+            <div className="eye">Services</div>
+            <h2>Quatre services, conçus pour le marché canadien.</h2>
+            <p>
+              Chaque livrable suit les standards attendus par les recruteurs et les systèmes de
+              tri (ATS) au Canada.
+            </p>
           </header>
         </FadeUp>
 
@@ -135,7 +139,7 @@ export function Services() {
                 {s.featured && <span className="service-tag">{s.featured.tag}</span>}
 
                 <div className="service-icon" aria-hidden="true">
-                  <Icon size={18} weight="bold" />
+                  <Icon size={28} weight="light" />
                 </div>
 
                 <div className="service-head">

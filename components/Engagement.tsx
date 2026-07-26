@@ -22,7 +22,7 @@ const PROMISES: Promise[] = [
   {
     num: "03",
     title: "Vos livrables, à vie",
-    desc: "Vous gardez l'usage de tous les documents qu'on produit ensemble. Pas d'abonnement, pas de licence.",
+    desc: "Tous les documents produits ensemble vous appartiennent. Pas d'abonnement, pas de licence.",
   },
 ];
 

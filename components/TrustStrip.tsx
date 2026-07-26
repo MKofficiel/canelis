@@ -4,7 +4,7 @@ import { FadeUp } from "@/components/motion/FadeUp";
 const KPIS = [
   { kpi: "Gratuit", label: "Premier appel découverte · sans engagement" },
   { kpi: "< 24 h", label: "Réponse WhatsApp en jours ouvrés" },
-  { kpi: "Français", label: "Coaching humain · 100 % en français" },
+  { kpi: "Français", label: "Accompagnement 100 % en français" },
   { kpi: "Trois-Rivières", label: "Coach installé au Québec" },
 ];
 

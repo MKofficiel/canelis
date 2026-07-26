@@ -8,12 +8,13 @@ type GroupProps = HTMLMotionProps<"div"> & {
   delayChildren?: number;
 };
 
+/* Même parti pris que FadeUp : pas de `filter: blur()` animé — trop coûteux
+   en compositing sur mobile bas de gamme, pour un gain visuel marginal. */
 const itemVariants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: DURATION.reveal, ease: EASE_OUT_QUINT },
   },
 };
