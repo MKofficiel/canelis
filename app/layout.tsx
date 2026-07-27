@@ -32,7 +32,7 @@ const lora = Lora({
 const isProduction = process.env.VERCEL_ENV === "production";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://canelis.vercel.app"),
+  metadataBase: new URL("https://canelis.net"),
   title: "Canelis · Coaching emploi Canada",
   description:
     "Plateforme d'accompagnement à l'emploi pour les chercheurs d'emploi en Afrique qui visent le Canada. CV canadien, lettre de présentation, préparation aux entrevues et coaching de carrière.",

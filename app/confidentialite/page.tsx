@@ -60,7 +60,7 @@ export default function ConfidentialitePage() {
               </a>
             </li>
             <li>
-              Courriel : <a href="mailto:hello@canelis.com">hello@canelis.com</a>
+              Courriel : <a href="mailto:hello@canelis.net">hello@canelis.net</a>
             </li>
           </ul>
 
@@ -144,7 +144,7 @@ export default function ConfidentialitePage() {
           </ul>
           <p>
             Pour exercer ces droits, écrivez-nous à{" "}
-            <a href="mailto:hello@canelis.com">hello@canelis.com</a>. Nous répondons dans les
+            <a href="mailto:hello@canelis.net">hello@canelis.net</a>. Nous répondons dans les
             délais prévus par la loi.
           </p>
 

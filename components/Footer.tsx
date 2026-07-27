@@ -64,9 +64,9 @@ export function Footer() {
               WhatsApp
               <span className="foot-row-meta">+1 438 282 5447</span>
             </a>
-            <a href="mailto:hello@canelis.com" className="foot-row">
+            <a href="mailto:hello@canelis.net" className="foot-row">
               Email
-              <span className="foot-row-meta">hello@canelis.com</span>
+              <span className="foot-row-meta">hello@canelis.net</span>
             </a>
             <a href="#" className="foot-row">
               Instagram
